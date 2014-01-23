@@ -15,6 +15,7 @@ namespace PowerDown
 	using System.Runtime.Serialization;
 	using System.Windows.Interop;
 
+	//Courtesy of http://www.codeproject.com/Tips/274003/Global-Hotkeys-in-WPF
 	namespace HDLibrary.Wpf.Input
 	{
 		public class HotKeyEventArgs : EventArgs
@@ -207,13 +208,11 @@ namespace PowerDown
 
 			private const int WM_HotKey = 786;
 
-			[DllImport("user32", CharSet = CharSet.Ansi,
-					   SetLastError = true, ExactSpelling = true)]
+			[DllImport("user32.dll")]
 			private static extern int RegisterHotKey(IntPtr hwnd,
 					int id, int modifiers, int key);
 
-			[DllImport("user32", CharSet = CharSet.Ansi,
-					   SetLastError = true, ExactSpelling = true)]
+			[DllImport("user32.dll")]
 			private static extern int UnregisterHotKey(IntPtr hwnd, int id);
 
 			#endregion

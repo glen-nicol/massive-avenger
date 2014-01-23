@@ -24,11 +24,13 @@ namespace PowerDown
 	/// </summary>
 	public partial class MainWindow : Window 
 	{
-		private HotKey OpenCloseToggle;
+		private HotKeyHost _host;
 		public bool Open { get; private set; }
 
 		public MainWindow()
 		{
+			ShowInTaskbar = false;
+			Topmost = true;
 			InitializeComponent();
 			Width = System.Windows.SystemParameters.PrimaryScreenWidth;
 			Left = 0;
@@ -36,24 +38,35 @@ namespace PowerDown
 			Open = true;
 
 			Loaded += Window_Loaded;
+			Closing += Window_Closed;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			HotKeyHost hotKeyHost = new HotKeyHost((HwndSource)HwndSource.FromVisual(App.Current.MainWindow));
-			hotKeyHost.AddHotKey(new FunctionHotKey(ToggleOpen ,Key.F10, ModifierKeys.Control | ModifierKeys.Shift, true));
+			_host = new HotKeyHost((HwndSource)HwndSource.FromVisual(App.Current.MainWindow));
+			_host.AddHotKey(new FunctionHotKey(ToggleOpen, Key.F10, ModifierKeys.Control | ModifierKeys.Shift, true));
 
+		}
+		private void Close_Clicked(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		private void Window_Closed(object sender, CancelEventArgs e)
+		{
+			_host.Dispose();
 		}
 
 		private void ToggleOpen()
 		{
+			
 			if (Open)
 			{
-				Height = 0;
+				Visibility = System.Windows.Visibility.Hidden;
 			}
 			else
 			{
-				Height = 500;
+				Visibility = System.Windows.Visibility.Visible;
 			}
 			Open = !Open;
 		}
