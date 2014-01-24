@@ -31,12 +31,11 @@ namespace PowerDown
 
 		public bool IssueCommand(string c)
 		{
-			Runspace runspace =
-				RunspaceFactory.CreateRunspace();
+			Runspace runspace = RunspaceFactory.CreateRunspace();
 			runspace.Open();
 
-			Pipeline pipeline =
-				runspace.CreatePipeline(c);
+			Pipeline pipeline =runspace.CreatePipeline(c);
+			pipeline.Commands.Add("Out-String");
 
 			pipeline.Output.DataReady +=
 				new EventHandler(HandleDataReady);

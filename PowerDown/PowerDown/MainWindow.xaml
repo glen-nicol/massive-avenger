@@ -19,8 +19,8 @@
 			</Grid.ContextMenu>
 			<Button Grid.Column="1" Grid.Row="1" Click="Button_Click">HEY</Button>
 		</Grid>
-		<TextBlock  TextWrapping="Wrap" Foreground="LightGreen" Text="{Binding Path=CurrentPowershell.Output,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-			
-		</TextBlock>
+		<ScrollViewer VerticalScrollBarVisibility="Auto" Cursor="">
+			<TextBlock  TextWrapping="Wrap" Foreground="LightGreen" Text="{Binding Path=CurrentPowershell.Output,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+		</ScrollViewer>
 	</DockPanel>
 </Window>
