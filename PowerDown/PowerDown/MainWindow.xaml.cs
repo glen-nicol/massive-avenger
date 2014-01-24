@@ -24,19 +24,22 @@ namespace PowerDown
 	/// </summary>
 	public partial class MainWindow : Window 
 	{
+		//public string CurrentTabOutput { get { return _currentPowershell.Output; } }
+		public IPowershell CurrentPowershell { get; private set; }
 		private HotKeyHost _host;
 		public bool Open { get; private set; }
 
 		public MainWindow()
 		{
+			InitializeComponent();
+			CurrentPowershell = new PowershellTab();
 			ShowInTaskbar = false;
 			Topmost = true;
-			InitializeComponent();
 			Width = System.Windows.SystemParameters.PrimaryScreenWidth;
 			Left = 0;
 			Top = 0;
 			Open = true;
-
+			DataContext = this;
 			Loaded += Window_Loaded;
 			Closing += Window_Closed;
 		}
@@ -45,7 +48,6 @@ namespace PowerDown
 		{
 			_host = new HotKeyHost((HwndSource)HwndSource.FromVisual(App.Current.MainWindow));
 			_host.AddHotKey(new FunctionHotKey(ToggleOpen, Key.F10, ModifierKeys.Control | ModifierKeys.Shift, true));
-
 		}
 		private void Close_Clicked(object sender, RoutedEventArgs e)
 		{
@@ -69,6 +71,11 @@ namespace PowerDown
 				Visibility = System.Windows.Visibility.Visible;
 			}
 			Open = !Open;
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			CurrentPowershell.IssueCommand("Get-process");
 		}
 	}
 }

@@ -17,8 +17,9 @@
 					<MenuItem Header="Close" Command="{Binding CloseCommand}" Click="Close_Clicked"/>
 				</ContextMenu>
 			</Grid.ContextMenu>
+			<Button Grid.Column="1" Grid.Row="1" Click="Button_Click">HEY</Button>
 		</Grid>
-		<TextBlock   Foreground="LightGreen">
+		<TextBlock  TextWrapping="Wrap" Foreground="LightGreen" Text="{Binding Path=CurrentPowershell.Output,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 			
 		</TextBlock>
 	</DockPanel>
