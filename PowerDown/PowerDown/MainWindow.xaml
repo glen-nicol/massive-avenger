@@ -6,19 +6,25 @@
         AllowsTransparency="True"
         ResizeMode="CanResize" Background="#BF000000"
 		>
+
 	<DockPanel   
 				VerticalAlignment="Stretch"
 				Height="Auto">
-		
-		
-		<Grid DockPanel.Dock="Bottom" Height="30" Background="Gray">
-			<Grid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="Close" Command="{Binding CloseCommand}" Click="Close_Clicked"/>
-				</ContextMenu>
-			</Grid.ContextMenu>
-			<Button Grid.Column="1" Grid.Row="1" Click="Button_Click">HEY</Button>
-		</Grid>
+
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+			<DockPanel>
+				<Label DockPanel.Dock="Left" Foreground="LightGreen">></Label>
+				<TextBox Background="Transparent" Foreground="LightGreen" Text="{Binding Path=CurrentTabWorkingCmd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="EnterCommand">
+				</TextBox>
+			</DockPanel>
+			<Grid  Height="30px" Background="Gray">
+				<Grid.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Close" Click="Close_Clicked"/>
+					</ContextMenu>
+				</Grid.ContextMenu>
+			</Grid>
+		</StackPanel>
 		<ScrollViewer VerticalScrollBarVisibility="Auto" Cursor="">
 			<TextBlock  TextWrapping="Wrap" Foreground="LightGreen" Text="{Binding Path=CurrentPowershell.Output,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 		</ScrollViewer>

@@ -31,6 +31,10 @@ namespace PowerDown
 
 		public bool IssueCommand(string c)
 		{
+			if (c == null)
+			{
+				c = string.Empty;
+			}
 			Runspace runspace = RunspaceFactory.CreateRunspace();
 			runspace.Open();
 

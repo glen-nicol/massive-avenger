@@ -22,9 +22,10 @@ namespace PowerDown
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window 
+	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		//public string CurrentTabOutput { get { return _currentPowershell.Output; } }
+		public string CurrentTabWorkingCmd { get; set; }
 		public IPowershell CurrentPowershell { get; private set; }
 		private HotKeyHost _host;
 		public bool Open { get; private set; }
@@ -73,9 +74,30 @@ namespace PowerDown
 			Open = !Open;
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		public void ExecutePSCommand()
 		{
-			CurrentPowershell.IssueCommand("Get-process");
+			CurrentPowershell.IssueCommand(CurrentTabWorkingCmd);
+			CurrentTabWorkingCmd = string.Empty;
+			PropertyChange("CurrentTabWorkingCmd");
 		}
+
+		private void EnterCommand(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				ExecutePSCommand();
+			}
+		}
+
+		protected void PropertyChange(string name)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+			{
+				handler(this, new PropertyChangedEventArgs(name));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }
