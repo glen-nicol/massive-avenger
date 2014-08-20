@@ -1,7 +1,7 @@
 massive-avenger
 ===============
 <code>
-```html
+
 <div id="j-card-authentication" class="j-card" >
     <p>The remote systems (Jive &amp; GitHub) require you to grant access before proceeding.</p>
     <div>
@@ -25,5 +25,5 @@ massive-avenger
     </p>
     <input id="github4jive-enable-submit" type="button" value="Save" />
 </div>
-```
+
 </code>
